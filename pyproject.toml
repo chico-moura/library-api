@@ -8,6 +8,7 @@ authors = ["chico"]
 python = "^3.9"
 Django = "^3.2.9"
 djangorestframework = "^3.12.4"
+djangorestframework-dataclasses = "^1.0.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
