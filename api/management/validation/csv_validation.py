@@ -7,5 +7,5 @@ class CSVValidationService:
     @staticmethod
     def validate_extension(file_name: str) -> None:
         extension = file_name.split('.')[-1]
-        if extension != ManagementEnum.CSV_EXTENSION:
+        if extension != ManagementEnum.CSV_EXTENSION.value:
             raise FileDoesNotHaveCSVExtensionException()
