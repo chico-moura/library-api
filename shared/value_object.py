@@ -3,8 +3,8 @@ from abc import ABC, abstractmethod
 
 class ValueObject(ABC):
     def __post_init__(self):
-        self._validate()
+        self.validate()
 
     @abstractmethod
-    def _validate(self) -> None:
+    def validate(self) -> None:
         pass
