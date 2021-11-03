@@ -4,7 +4,7 @@ from domain.exceptions.value_objects.author_name_exceptions.author_name_too_long
     AuthorNameTooLongException
 from domain.exceptions.value_objects.author_name_exceptions.author_name_too_short_exception import \
     AuthorNameTooShortException
-from shared.value_object import ValueObject
+from domain.entities.value_object import ValueObject
 
 
 @dataclass(frozen=True)
