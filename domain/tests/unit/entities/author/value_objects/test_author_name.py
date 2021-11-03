@@ -13,6 +13,13 @@ class TestAuthorName(TestCase):
     def tearDown(self) -> None:
         unstub()
 
+    def test_init_WHEN_name_is_given_THEN_assigns_given_name_to_value(self) -> None:
+        expected_name = 'Author Name'
+
+        author_name = AuthorName(expected_name)
+
+        self.assertEqual(expected_name, author_name.value)
+
     def test_validate_WHEN_author_name_is_too_long_THEN_raises_author_name_too_long_exception(self) -> None:
         max_size = AuthorSettings.NAME_MAX_LENGTH
         name = 'a' * (max_size + 1)
