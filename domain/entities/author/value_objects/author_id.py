@@ -1,11 +1,12 @@
 import uuid
-from dataclasses import dataclass
-from typing import Optional
+from dataclasses import dataclass, field
+
+from domain.entities.value_object import ValueObject
 
 
-@dataclass(init=False)
-class AuthorId:
-    value: uuid.UUID
+@dataclass(frozen=True)
+class AuthorId2(ValueObject):
+    value: uuid.UUID = field(default_factory=uuid.uuid4)
 
-    def __init__(self, value: Optional[uuid.UUID] = None) -> None:
-        self.value = value or uuid.uuid4()
+    def validate(self) -> None:
+        pass
