@@ -1,5 +1,6 @@
+from __future__ import annotations
 from dataclasses import dataclass
-from typing import Optional
+from uuid import UUID
 
 from domain.entities.author.author import Author
 from domain.entities.author.value_objects.author_id import AuthorId
@@ -8,10 +9,19 @@ from domain.entities.author.value_objects.author_name import AuthorName
 
 @dataclass
 class AuthorDTO:
+    id: str
     name: str
-    id: Optional[str] = None
+
+    @classmethod
+    def from_entity(cls, author: Author) -> AuthorDTO:
+        id_ = author.id.value.hex
+        name = author.name.value
+
+        return cls(id=id_, name=name)
 
     def to_entity(self) -> Author:
-        name = AuthorName(self.name)
-        id_ = AuthorId(self.id)
-        return Author(id_=id_, name=name)
+        raw_id = UUID(self.id)
+        author_id = AuthorId(raw_id)
+        author_name = AuthorName(self.name)
+
+        return Author(id=author_id, name=author_name)
