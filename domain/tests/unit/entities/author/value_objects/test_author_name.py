@@ -1,5 +1,4 @@
 from unittest import TestCase
-
 from mockito import when, unstub
 
 from domain.entities.author.value_objects.author_name import AuthorName
