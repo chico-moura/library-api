@@ -1,0 +1,10 @@
+# FIXME: those should be immutable
+
+class GenericSettings:
+    STRING_VALUE_OBJECT_DEFAULT_MIN_LENGTH = 2
+    STRING_VALUE_OBJECT_DEFAULT_MAX_LENGTH = 250
+
+
+class AuthorSettings:
+    NAME_MIN_LENGTH = GenericSettings.STRING_VALUE_OBJECT_DEFAULT_MIN_LENGTH
+    NAME_MAX_LENGTH = GenericSettings.STRING_VALUE_OBJECT_DEFAULT_MAX_LENGTH
