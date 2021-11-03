@@ -12,4 +12,4 @@ class AuthorModel(Model):
 
     @classmethod
     def from_entity(cls, author: Author) -> AuthorModel:
-        return AuthorModel(id=author.id.value, name=author.name.value)
+        return AuthorModel(id=author.__id.value, name=author.__name.value)
