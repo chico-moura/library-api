@@ -5,12 +5,10 @@ from rest_framework.views import APIView
 
 from api.models import AuthorModel
 from api.serializers.author_output_dto_serializer import AuthorOutputDTOSerializer
-from domain.entities.author.dtos.author_output_dto import AuthorOutputDTO
 from domain.repositories.author_repository import AuthorRepository
 from domain.services.save_author_service import SaveAuthorService
 from api.repositories.django_author_repository import DjangoAuthorRepository
 
-# TODO: -> JSON reponse
 # TODO: Integrated test mocking DB
 # TODO: Finish endpoint
 # TODO: CSV (django commands & pure python) (is CSV part of domain)
@@ -29,6 +27,9 @@ class AuthorView(APIView):
         return Response(serializer.data)
 
     def post(self, request: Request, *args, **kwargs) -> Response:
+        pass
+
+    def _update(self, request: Request, *args, **kwargs) -> Response:
         # FIXME: DTO serializer? Or entity serializer?
         serializer = AuthorOutputDTOSerializer(data=request.data)
 

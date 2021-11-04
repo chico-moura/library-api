@@ -16,10 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from api.views.author_view import AuthorView
-
+from api.views.authors_view import AuthorView
+from api.views.read_author_view import ReadAuthorView
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("authors/", AuthorView.as_view(), name="authors"),
+    path('admin/', admin.site.urls),
+    path('authors/', AuthorView.as_view(), name='authors'),
+    path('authors/<str:raw_id>/', ReadAuthorView.as_view(), name='read_author')
+
 ]
