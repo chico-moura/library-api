@@ -4,7 +4,7 @@ from django.core.management import BaseCommand, CommandParser
 
 from api.repositories.django_author_repository import DjangoAuthorRepository
 from domain.entities.author.author import Author
-from domain.entities.author.dtos.author_dto import AuthorDTO
+from domain.entities.author.dtos.author_output_dto import AuthorOutputDTO
 from domain.entities.author.value_objects.author_id import AuthorId
 from domain.entities.author.value_objects.author_name import AuthorName
 from domain.services.save_author_service import SaveAuthorService
@@ -40,6 +40,6 @@ class Command(BaseCommand):
                 id=author_id,
                 name=author_name
             )
-            author_dto = AuthorDTO.from_entity(author)
+            author_dto = AuthorOutputDTO.from_entity(author)
 
             self.__SAVE_AUTHOR_SERVICE.execute(author_dto)

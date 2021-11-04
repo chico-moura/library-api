@@ -8,12 +8,12 @@ from domain.entities.author.value_objects.author_name import AuthorName
 
 
 @dataclass
-class AuthorDTO:
+class AuthorOutputDTO:
     id: UUID
     name: str
 
     @classmethod
-    def from_entity(cls, author: Author) -> AuthorDTO:
+    def from_entity(cls, author: Author) -> AuthorOutputDTO:
         return cls(
             id=author.id.value,
             name=author.name.value

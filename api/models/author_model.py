@@ -2,7 +2,8 @@ from __future__ import annotations
 from django.db import models
 from django.db.models import Model
 
-from domain.entities.author.dtos.author_dto import AuthorDTO
+from domain.entities.author import author
+from domain.entities.author.dtos.author_output_dto import AuthorOutputDTO
 from domain.settings import AuthorSettings
 
 
@@ -11,7 +12,7 @@ class AuthorModel(Model):
     name = models.CharField(max_length=AuthorSettings.NAME_MAX_LENGTH)
 
     @classmethod
-    def from_dto(cls, author_dto: AuthorDTO) -> AuthorModel:
+    def from_dto(cls, author_dto: AuthorOutputDTO) -> AuthorModel:
         return AuthorModel(
             id=author_dto.id,
             name=author_dto.name
