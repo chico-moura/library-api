@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from api.models import AuthorModel
-from api.serializers.author_dto_serializer import AuthorDTOSerializer
+from api.serializers.author_output_dto_serializer import AuthorOutputDTOSerializer
 from domain.entities.author.dtos.author_output_dto import AuthorOutputDTO
 from domain.repositories.author_repository import AuthorRepository
 from domain.services.save_author_service import SaveAuthorService
@@ -25,12 +25,12 @@ class AuthorView(APIView):
 
     def get(self, request: Request) -> Response:
         authors = AuthorModel.objects.all()
-        serializer = AuthorDTOSerializer(authors, many=True)
+        serializer = AuthorOutputDTOSerializer(authors, many=True)
         return Response(serializer.data)
 
     def post(self, request: Request, *args, **kwargs) -> Response:
         # FIXME: DTO serializer? Or entity serializer?
-        serializer = AuthorDTOSerializer(data=request.data)
+        serializer = AuthorOutputDTOSerializer(data=request.data)
 
         if serializer.is_valid():
             author_dto = serializer.save()
