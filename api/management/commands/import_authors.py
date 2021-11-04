@@ -3,7 +3,10 @@ import csv
 from django.core.management import BaseCommand, CommandParser
 
 from api.repositories.django_author_repository import DjangoAuthorRepository
+from domain.entities.author.author import Author
 from domain.entities.author.dtos.author_dto import AuthorDTO
+from domain.entities.author.value_objects.author_id import AuthorId
+from domain.entities.author.value_objects.author_name import AuthorName
 from domain.services.save_author_service import SaveAuthorService
 
 
@@ -29,7 +32,14 @@ class Command(BaseCommand):
         author_reader = csv.reader(csv_file)
 
         for row in author_reader:
-            author_name = ''.join(row)
-            author_dto = AuthorDTO(author_name)
+            raw_name = ''.join(row)
+            author_id = AuthorId()
+            author_name = AuthorName(raw_name)
+
+            author = Author(
+                id=author_id,
+                name=author_name
+            )
+            author_dto = AuthorDTO.from_entity(author)
 
             self.__SAVE_AUTHOR_SERVICE.execute(author_dto)

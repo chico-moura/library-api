@@ -12,7 +12,7 @@ class TestAuthorDTO(TestCase):
         author_name = AuthorName('Fake Name')
         author_id = AuthorId(uuid.uuid4())
         author = Author(id=author_id, name=author_name)
-        expected_stringified_id = author_id.value.hex
+        expected_stringified_id = author_id.value
 
         author_dto = AuthorDTO.from_entity(author)
 
@@ -31,7 +31,7 @@ class TestAuthorDTO(TestCase):
     def test_to_entity_WHEN_called_THEN_returns_author_with_same_id(self) -> None:
         expected_id = uuid.uuid4()
         raw_name = 'Fake Name'
-        author_dto = AuthorDTO(id=expected_id.hex, name=raw_name)
+        author_dto = AuthorDTO(id=expected_id, name=raw_name)
 
         author = author_dto.to_entity()
 
@@ -40,7 +40,7 @@ class TestAuthorDTO(TestCase):
     def test_to_entity_WHEN_called_THEN_returns_author_with_same_name(self) -> None:
         expected_name = 'Fake Name'
         raw_id = uuid.uuid4()
-        author_dto = AuthorDTO(id=raw_id.hex, name=expected_name)
+        author_dto = AuthorDTO(id=raw_id, name=expected_name)
 
         author = author_dto.to_entity()
 
