@@ -1,5 +1,4 @@
 from rest_framework import status
-from rest_framework.renderers import JSONRenderer
 from rest_framework.request import Request
 from rest_framework.response import Response
 

@@ -3,18 +3,13 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from api.models import AuthorDTOModel
 from api.serializers.author_output_dto_serializer import AuthorOutputDTOSerializer
 from domain.repositories.author_repository import AuthorRepository
-from domain.services.save_author_service import SaveAuthorService
+from domain.services.author.list_authors_service import ListAuthorsService
 from api.repositories.django_author_repository import DjangoAuthorRepository
 
-# TODO: Integrated test mocking DB
-# TODO: Finish endpoint
-# TODO: CSV (django commands & pure python) (is CSV part of domain)
 
-
-class AuthorView(APIView):
+class AuthorsView(APIView):
     __author_repository: AuthorRepository
 
     def __init__(self, *args, **kwargs) -> None:
@@ -22,28 +17,7 @@ class AuthorView(APIView):
         self.__author_repository = DjangoAuthorRepository()
 
     def get(self, request: Request) -> Response:
-        authors = AuthorDTOModel.objects.all()
+        list_authors_service = ListAuthorsService(self.__author_repository)
+        authors = list_authors_service.execute()
         serializer = AuthorOutputDTOSerializer(authors, many=True)
-        return Response(serializer.data)
-
-    def post(self, request: Request, *args, **kwargs) -> Response:
-        pass
-
-    def _update(self, request: Request, *args, **kwargs) -> Response:
-        # FIXME: DTO serializer? Or entity serializer?
-        serializer = AuthorOutputDTOSerializer(data=request.data)
-
-        if serializer.is_valid():
-            author_dto = serializer.save()
-            save_author_service = SaveAuthorService(self.__author_repository)
-
-            save_author_service.execute(author_dto)
-
-            return Response(
-                data=serializer.data,
-                status=status.HTTP_201_CREATED
-            )
-        return Response(
-            data=serializer.errors,
-            status=status.HTTP_400_BAD_REQUEST
-        )
+        return Response(data=serializer.data, status=status.HTTP_200_OK)

@@ -9,8 +9,6 @@ from domain.entities.author.value_objects.author_id import AuthorId
 from domain.repositories.author_repository import AuthorRepository
 
 
-# TODO: make integration test with bank
-
 class DjangoAuthorRepository(AuthorRepository):
     def save(self, *authors: Author) -> None:
         dtos = [AuthorDTO.from_entity(author) for author in authors]
