@@ -3,7 +3,6 @@ import argparse
 from django.core.management import BaseCommand, CommandParser
 
 from api.repositories.django_author_repository import DjangoAuthorRepository
-from domain.entities.author.dtos.author_input_dto import AuthorCreationDTO
 from domain.entities.authors_csv_file.authors_csv_file import AuthorsCSVFile
 from domain.services.author.save_author_collection_service import SaveAuthorCollectionService
 
@@ -29,7 +28,9 @@ class Command(BaseCommand):
     def handle(self, *args, **options) -> None:
         raw_csv = options[self.__OPTION]
         authors_csv = AuthorsCSVFile(raw_csv)
+        author_count = authors_csv.length
 
         author_creation_dtos = authors_csv.to_dto_collection()
 
         self.__save_author_collection_service.execute(author_creation_dtos)
+        print(f'Added {author_count} author(s) to database')

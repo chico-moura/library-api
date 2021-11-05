@@ -53,3 +53,11 @@ class TestAuthorsCSVFile(TestCase):
 
         self.assertEqual(expected_result, actual_result)
 
+    def test_to_dto_collection_WHEN_length_property_is_used_before_THEN_still_returns_dtos(self) -> None:
+        length = self.author_csv_file.length
+        expected_result = [AuthorCreationDTO(name) for name in self.names]
+
+        actual_result = self.author_csv_file.to_dto_collection()
+
+        self.assertEqual(expected_result, actual_result)
+
