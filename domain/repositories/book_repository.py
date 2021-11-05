@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import List
+from typing import List, Optional
 
 from domain.entities.author.value_objects.author_id import AuthorId
 from domain.entities.book.book import Book
@@ -15,11 +15,15 @@ class BookRepository(ABC):
         pass
 
     @abstractmethod
-    def get(self,
-            id_: BookId,
-            name: BookName,
-            edition: BookEdition,
-            publication_year: BookPublicationYear,
-            authors: List[AuthorId]
+    def get_by_id(self, id_: BookId) -> Book:
+        pass
+
+    @abstractmethod
+    def get_by_attributes(
+        self,
+        name: Optional[BookName],
+        edition: Optional[BookEdition],
+        publication_year: Optional[BookPublicationYear],
+        authors: Optional[List[AuthorId]]
     ) -> List[Book]:
         pass
