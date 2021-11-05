@@ -1,45 +1,35 @@
 import argparse
-import csv
+
 from django.core.management import BaseCommand, CommandParser
 
 from api.repositories.django_author_repository import DjangoAuthorRepository
-from domain.entities.author.author import Author
-from domain.entities.author.dtos.author_output_dto import AuthorOutputDTO
-from domain.entities.author.value_objects.author_id import AuthorId
-from domain.entities.author.value_objects.author_name import AuthorName
-from domain.services.save_author_service import SaveAuthorService
+from domain.entities.author.dtos.author_input_dto import AuthorCreationDTO
+from domain.entities.authors_csv_file.authors_csv_file import AuthorsCSVFile
+from domain.services.author.save_author_collection_service import SaveAuthorCollectionService
 
 
 class Command(BaseCommand):
-    __CSV_FILE: str = 'csv_file'
-    __SAVE_AUTHOR_SERVICE: SaveAuthorService
+    __OPTION: str = 'csv_file'
+    __save_author_collection_service: SaveAuthorCollectionService
 
     help = 'Import authors from a CSV file to database.'
 
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
+
         author_repository = DjangoAuthorRepository()
-        self.__SAVE_AUTHOR_SERVICE = SaveAuthorService(author_repository)
+        self.__save_author_collection_service = SaveAuthorCollectionService(author_repository)
 
     def add_arguments(self, parser: CommandParser) -> None:
         parser.add_argument(
-            self.__CSV_FILE,
+            self.__OPTION,
             type=argparse.FileType('r')
         )
 
     def handle(self, *args, **options) -> None:
-        csv_file = options[self.__CSV_FILE]
-        author_reader = csv.reader(csv_file)
+        raw_csv = options[self.__OPTION]
+        authors_csv = AuthorsCSVFile(raw_csv)
 
-        for row in author_reader:
-            raw_name = ''.join(row)
-            author_id = AuthorId()
-            author_name = AuthorName(raw_name)
+        author_creation_dtos = authors_csv.to_dto_collection()
 
-            author = Author(
-                id=author_id,
-                name=author_name
-            )
-            author_dto = AuthorOutputDTO.from_entity(author)
-
-            self.__SAVE_AUTHOR_SERVICE.execute(author_dto)
+        self.__save_author_collection_service.execute(author_creation_dtos)

@@ -1,15 +1,14 @@
 from django.contrib import admin
 from django.urls import path, include
 
-from api.views.authors_view import AuthorView
-
+from api.views.list_authors_view import ListAuthorsView
 
 authors = [
-    path('', AuthorView.as_view()),
-    path('create/'),
-    path('detail/<str:raw_id>'),
-    path('update/<str:raw_id>'),
-    path('delete/<str:raw_id>')
+    path('', ListAuthorsView.as_view()),
+    # path('create/'),
+    # path('detail/<str:raw_id>'),
+    # path('update/<str:raw_id>'),
+    # path('delete/<str:raw_id>')
 ]
 
 urlpatterns = [

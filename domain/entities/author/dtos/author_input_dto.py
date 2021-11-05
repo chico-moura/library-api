@@ -6,7 +6,7 @@ from domain.entities.author.value_objects.author_name import AuthorName
 
 
 @dataclass
-class AuthorInputDTO:
+class AuthorCreationDTO:
     name: str
 
     def to_entity(self) -> Author:

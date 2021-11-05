@@ -1,4 +1,4 @@
-from api.models.author_model import AuthorModel
+from api.models.author_dto_model import AuthorDTOModel
 
 
 # TODO: import all models

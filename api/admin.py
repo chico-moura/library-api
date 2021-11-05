@@ -1,10 +1,10 @@
 from django.contrib import admin
 
-from api.models import AuthorModel
+from api.models import AuthorDTOModel
 
 
 class AuthorAdmin(admin.ModelAdmin):
     pass
 
 
-admin.site.register(AuthorModel, AuthorAdmin)
+admin.site.register(AuthorDTOModel, AuthorAdmin)

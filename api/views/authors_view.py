@@ -3,7 +3,7 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from api.models import AuthorModel
+from api.models import AuthorDTOModel
 from api.serializers.author_output_dto_serializer import AuthorOutputDTOSerializer
 from domain.repositories.author_repository import AuthorRepository
 from domain.services.save_author_service import SaveAuthorService
@@ -22,7 +22,7 @@ class AuthorView(APIView):
         self.__author_repository = DjangoAuthorRepository()
 
     def get(self, request: Request) -> Response:
-        authors = AuthorModel.objects.all()
+        authors = AuthorDTOModel.objects.all()
         serializer = AuthorOutputDTOSerializer(authors, many=True)
         return Response(serializer.data)
 
