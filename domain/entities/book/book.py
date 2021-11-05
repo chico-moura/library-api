@@ -9,7 +9,7 @@ from domain.entities.book.value_objects.book_publication_year import BookPublica
 
 
 @dataclass(frozen=True)
-class Book2:
+class Book:
     id: BookId
     name: BookName
     edition: BookEdition
