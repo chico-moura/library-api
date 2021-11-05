@@ -1,4 +1,3 @@
-from copy import copy
 from csv import DictReader
 from io import TextIOWrapper
 from typing import List
