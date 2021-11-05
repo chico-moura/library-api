@@ -1,7 +1,12 @@
 import uuid
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+
+from domain.entities.value_object import ValueObject
 
 
 @dataclass(frozen=True)
-class BookId:
-    value: uuid.UUID
+class BookId(ValueObject):
+    value: uuid.UUID = field(default_factory=uuid.uuid4)
+
+    def validate(self) -> None:
+        pass
