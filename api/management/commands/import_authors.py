@@ -8,7 +8,7 @@ from domain.services.author.save_author_collection_service import SaveAuthorColl
 
 
 class Command(BaseCommand):
-    __OPTION: str = 'csv_file'
+    __argument_name: str = 'csv_file'
     __save_author_collection_service: SaveAuthorCollectionService
 
     help = 'Import authors from a CSV file to database.'
@@ -21,12 +21,12 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser: CommandParser) -> None:
         parser.add_argument(
-            self.__OPTION,
+            self.__argument_name,
             type=argparse.FileType('r')
         )
 
     def handle(self, *args, **options) -> None:
-        raw_csv = options[self.__OPTION]
+        raw_csv = options[self.__argument_name]
         authors_csv = AuthorsCSVFile(raw_csv)
         author_count = authors_csv.length
 
