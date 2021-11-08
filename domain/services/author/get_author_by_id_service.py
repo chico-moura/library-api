@@ -1,8 +1,8 @@
 from uuid import UUID
 
-from domain.entities.author.dtos.author_dto import AuthorDTO
-from domain.entities.author.value_objects.author_id import AuthorId
-from domain.repositories.author_repository import AuthorRepository
+from domain.entities.author.dtos import AuthorDTO
+from domain.entities.author.value_objects import AuthorId
+from domain.repositories import AuthorRepository
 
 
 class GetAuthorByIdService:

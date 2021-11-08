@@ -1,8 +1,8 @@
 from unittest import TestCase
 
-from domain.entities.book.dtos.bookDTO import BookDTO
-from domain.factories.book_factory import BookFactory
-from domain.tests.factories.book_test_factories import BookDTOTestFactory
+from domain.entities.book.dtos import BookDTO
+from domain.factories import BookFactory
+from domain.tests.factories import BookDTOTestFactory
 
 
 class TestBookFactory(TestCase):

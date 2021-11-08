@@ -2,10 +2,10 @@ from unittest import TestCase
 
 from mockito import mock, when, unstub, verify
 
-from domain.entities.author.author import Author
-from domain.entities.author.dtos.author_input_dto import AuthorCreationDTO
-from domain.repositories.author_repository import AuthorRepository
-from domain.services.author.save_author_collection_service import SaveAuthorCollectionService
+from domain.entities.author import Author
+from domain.entities.author.dtos import AuthorCreationDTO
+from domain.repositories import AuthorRepository
+from domain.services import SaveAuthorCollectionService
 
 
 class TestSaveAuthorCollectionService(TestCase):

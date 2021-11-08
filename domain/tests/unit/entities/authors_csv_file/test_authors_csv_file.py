@@ -1,11 +1,10 @@
-import os
 import pathlib
 from io import TextIOWrapper
 from typing import BinaryIO, List
 from unittest import TestCase
 
 from mockito import unstub
-from domain.entities.author.dtos.author_input_dto import AuthorCreationDTO
+from domain.entities.author.dtos import AuthorCreationDTO
 from domain.entities.authors_csv_file.authors_csv_file import AuthorsCSVFile
 
 

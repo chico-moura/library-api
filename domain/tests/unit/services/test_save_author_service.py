@@ -1,10 +1,10 @@
 from unittest import TestCase
 from unittest.mock import create_autospec
 
-from domain.entities.author.author import Author
-from domain.entities.author.dtos.author_dto import AuthorDTO
-from domain.repositories.author_repository import AuthorRepository
-from domain.services.save_author_service import SaveAuthorService
+from domain.entities.author import Author
+from domain.entities.author.dtos import AuthorDTO
+from domain.repositories import AuthorRepository
+from domain.services import SaveAuthorService
 
 
 class TestSaveAuthorService(TestCase):

@@ -1,6 +1,6 @@
 from typing import List
 
-from domain.entities.author.dtos.author_dto import AuthorDTO
+from domain.entities.author.dtos import AuthorDTO
 from domain.services.author.base_author_service import BaseAuthorService
 
 

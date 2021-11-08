@@ -2,7 +2,7 @@ from csv import DictReader
 from io import TextIOWrapper
 from typing import List
 
-from domain.entities.author.dtos.author_input_dto import AuthorCreationDTO
+from domain.entities.author.dtos.author_creation_dto import AuthorCreationDTO
 
 
 # FIXME: send me to api layer or make service receives file path

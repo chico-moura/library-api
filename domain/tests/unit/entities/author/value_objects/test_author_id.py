@@ -1,7 +1,7 @@
 from unittest import TestCase
 import uuid
 
-from domain.entities.author.value_objects.author_id import AuthorId
+from domain.entities.author.value_objects import AuthorId
 
 
 class TestAuthorId(TestCase):

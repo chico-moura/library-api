@@ -1,6 +1,6 @@
 from factory import Factory, Faker
 
-from domain.entities.author.dtos.author_dto import AuthorDTO
+from domain.entities.author.dtos import AuthorDTO
 
 
 class AuthorDTOTestFactory(Factory):

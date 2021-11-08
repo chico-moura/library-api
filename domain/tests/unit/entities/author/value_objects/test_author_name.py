@@ -1,7 +1,7 @@
 from unittest import TestCase
 from mockito import when, unstub
 
-from domain.entities.author.value_objects.author_name import AuthorName
+from domain.entities.author.value_objects import AuthorName
 from domain.exceptions.value_objects.author_name_exceptions.author_name_too_long_exception import \
     AuthorNameTooLongException
 from domain.exceptions.value_objects.author_name_exceptions.author_name_too_short_exception import \

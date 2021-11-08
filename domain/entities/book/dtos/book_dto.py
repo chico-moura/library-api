@@ -5,7 +5,7 @@ from typing import List
 from uuid import UUID
 
 from domain.entities.book.book import Book
-from domain.factories.book_factory import BookFactory
+from domain.factories import BookFactory
 
 
 @dataclass

@@ -1,10 +1,10 @@
 from __future__ import annotations
+
 from dataclasses import dataclass
 from uuid import UUID
 
 from domain.entities.author.author import Author
-from domain.entities.author.value_objects.author_id import AuthorId
-from domain.entities.author.value_objects.author_name import AuthorName
+from domain.entities.author.value_objects import AuthorId, AuthorName
 
 
 @dataclass

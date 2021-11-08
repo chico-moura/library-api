@@ -2,8 +2,9 @@ from uuid import uuid4
 
 from factory import Factory, Faker, SubFactory
 
-from domain.entities.author.value_objects.author_id import AuthorId
-from domain.entities.book.book import Book
+from domain.entities.author.value_objects import AuthorId
+from domain.entities.book import Book
+
 from domain.tests.factories.book_test_factories.book_edition_test_factory import BookEditionTestFactory
 from domain.tests.factories.book_test_factories.book_id_test_factory import BookIdTestFactory
 from domain.tests.factories.book_test_factories.book_name_test_factory import BookNameTestFactory

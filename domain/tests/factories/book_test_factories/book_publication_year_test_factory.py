@@ -1,6 +1,6 @@
 from factory import Factory, Faker
 
-from domain.entities.book.value_objects.book_publication_year import BookPublicationYear
+from domain.entities.book.value_objects import BookPublicationYear
 
 
 class BookPublicationYearTestFactory(Factory):

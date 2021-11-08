@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from sre_constants import ANY
 
-from domain.repositories.author_repository import AuthorRepository
+from domain.repositories import AuthorRepository
 
 
 class BaseAuthorService(ABC):

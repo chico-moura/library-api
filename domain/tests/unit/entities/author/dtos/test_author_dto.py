@@ -1,10 +1,9 @@
 import uuid
 from unittest import TestCase
 
-from domain.entities.author.author import Author
-from domain.entities.author.dtos.author_dto import AuthorDTO
-from domain.entities.author.value_objects.author_id import AuthorId
-from domain.entities.author.value_objects.author_name import AuthorName
+from domain.entities.author import Author
+from domain.entities.author.dtos import AuthorDTO
+from domain.entities.author.value_objects import AuthorId, AuthorName
 
 
 # TODO: first test stuff comparing full objects or its representations

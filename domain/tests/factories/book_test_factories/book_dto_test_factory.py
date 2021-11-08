@@ -1,7 +1,7 @@
 from factory import Factory, Faker
 from uuid import uuid4
 
-from domain.entities.book.dtos.bookDTO import BookDTO
+from domain.entities.book.dtos import BookDTO
 
 
 class BookDTOTestFactory(Factory):

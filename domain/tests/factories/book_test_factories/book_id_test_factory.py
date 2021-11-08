@@ -1,6 +1,6 @@
 from factory import Factory, Faker
 
-from domain.entities.book.value_objects.book_id import BookId
+from domain.entities.book.value_objects import BookId
 
 
 class BookIdTestFactory(Factory):
