@@ -8,4 +8,3 @@ class ListAuthorsService(BaseAuthorService):
     def execute(self) -> List[AuthorDTO]:
         authors = self._author_repository.get_all()
         return [AuthorDTO.from_entity(author) for author in authors]
-        # return {author.id: AuthorOutputDTO.from_entity(author) for author in authors}

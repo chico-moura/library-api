@@ -8,6 +8,8 @@ from domain.entities.author.dtos.author_dto import AuthorDTO
 from domain.entities.author.value_objects.author_id import AuthorId
 from domain.repositories.author_repository import AuthorRepository
 
+# TODO: cut off dtos, do it directly, it's already decoupled
+
 
 class DjangoAuthorRepository(AuthorRepository):
     def save(self, *authors: Author) -> None:

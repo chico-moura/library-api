@@ -3,6 +3,9 @@ from domain.entities.author.value_objects.author_id import AuthorId
 from domain.entities.author.value_objects.author_name import AuthorName
 
 
+# FIXME: use factory_boy
+
+
 class AuthorFactory:
     @staticmethod
     def new(name: str) -> Author:

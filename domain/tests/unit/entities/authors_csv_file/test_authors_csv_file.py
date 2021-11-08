@@ -35,7 +35,7 @@ class TestAuthorsCSVFile(TestCase):
     def test_names_WHEN_called_THEN_returns_list_of_names_in_file(self) -> None:
         expected_result = self.names
 
-        actual_result = self.author_csv_file.names
+        actual_result = self.author_csv_file.authors_names
 
         self.assertEqual(expected_result, actual_result)
 

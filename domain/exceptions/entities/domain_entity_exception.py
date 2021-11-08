@@ -1,4 +1,4 @@
-from domain.exceptions.domain_exception import DomainException
+from shared.domain_exception import DomainException
 
 
 class DomainEntityException(DomainException):

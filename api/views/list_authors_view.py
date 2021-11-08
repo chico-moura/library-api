@@ -8,9 +8,14 @@ from domain.services.author.list_authors_service import ListAuthorsService
 
 
 class ListAuthorsView(BaseAuthorView):
+    __list_authors_service: ListAuthorsService
+
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        self.__list_authors_service = ListAuthorsService(self._author_repository)
+
     def get(self, request: Request) -> Response:
-        list_authors_service = ListAuthorsService(self._author_repository)
-        dtos = list_authors_service.execute()
+        dtos = self.__list_authors_service.execute()
         serializer = AuthorOutputDTOSerializer(dtos, many=True)
 
         return Response(

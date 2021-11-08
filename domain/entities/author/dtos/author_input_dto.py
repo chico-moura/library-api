@@ -4,6 +4,9 @@ from domain.entities.author.author import Author
 from domain.entities.author.value_objects.author_id import AuthorId
 from domain.entities.author.value_objects.author_name import AuthorName
 
+# TODO: change name to author_creation_dto
+# TODO: method to_entity must call a factory
+
 
 @dataclass
 class AuthorCreationDTO:

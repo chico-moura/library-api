@@ -14,18 +14,23 @@ class TestAuthorsViews(TestCase):
     def tearDown(self) -> None:
         unstub()
 
+    # FIXME: tests must as less DRY as possible.
+    # TODO: another test: response status
     def test_get_WHEN_called_THEN_return_response_with_authors_data(self) -> None:
         authors = [
             AuthorFactory.new(name='Author 1'),
             AuthorFactory.new(name='Author 2')
         ]
-        # FIXME: why can't I generalize AuthorRepository? when(AuthorRepository)
+        # TODO: follow this example
+        # when(AuthorDTOModel.objects).all().thenReturn(authors)
         when(DjangoAuthorRepository).get_all().thenReturn(authors)
         authors_view = AuthorsView()
         request = Request(HttpRequest())
         expected_ids = [author.id.value for author in authors]
 
+        # TODO: use APITestCase from django to send an actual request instead of calling class method
         response = authors_view.get(request)
 
+        # FIXME: make it compare all author data
         actual_ids = [UUID(data['id']) for data in response.data]
         self.assertEqual(expected_ids, actual_ids)

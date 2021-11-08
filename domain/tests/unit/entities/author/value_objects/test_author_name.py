@@ -9,6 +9,8 @@ from domain.exceptions.value_objects.author_name_exceptions.author_name_too_shor
 from domain.settings import AuthorSettings
 
 
+# FIXME: should test __init__, not save. no one cares about validate()
+
 class TestAuthorName(TestCase):
     def tearDown(self) -> None:
         unstub()
