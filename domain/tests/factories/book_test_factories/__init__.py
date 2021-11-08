@@ -1,0 +1,6 @@
+from domain.tests.factories.book_test_factories.book_test_factory import BookTestFactory
+from domain.tests.factories.book_test_factories.book_dto_test_factory import BookDTOTestFactory
+from domain.tests.factories.book_test_factories.book_id_test_factory import BookIdTestFactory
+from domain.tests.factories.book_test_factories.book_name_test_factory import BookNameTestFactory
+from domain.tests.factories.book_test_factories.book_edition_test_factory import BookEditionTestFactory
+from domain.tests.factories.book_test_factories.book_publication_year_test_factory import BookPublicationYearTestFactory

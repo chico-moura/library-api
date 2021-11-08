@@ -1,0 +1,5 @@
+from domain.tests.factories.author_test_factories.author_id_test_factory import AuthorIdTestFactory
+from domain.tests.factories.author_test_factories.author_name_test_factory import AuthorNameTestFactory
+from domain.tests.factories.author_test_factories.author_test_factory import AuthorTestFactory
+from domain.tests.factories.author_test_factories.author_dto_test_factory import AuthorDTOTestFactory
+from domain.tests.factories.author_test_factories.author_creation_dto_test_factory import AuthorCreationDTOTestFactory

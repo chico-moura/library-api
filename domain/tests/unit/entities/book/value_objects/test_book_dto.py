@@ -1,13 +1,12 @@
 from unittest import TestCase
 
 from domain.entities.book.dtos.bookDTO import BookDTO
-from domain.tests.factories.book_dto_factory import BookDTOFactory
-from domain.tests.factories.book_factory import BookFactory
+from domain.tests.factories.book_test_factories import BookTestFactory, BookDTOTestFactory
 
 
 class TestBookDTO(TestCase):
     def test_to_entity_WHEN_called_THEN_returns_book_with_matching_attributes(self) -> None:
-        dto = BookDTOFactory.get_random('Book name')
+        dto = BookDTOTestFactory.build()
         expected_values = [
             dto.id,
             dto.name,
@@ -28,7 +27,7 @@ class TestBookDTO(TestCase):
         self.assertEqual(expected_values, actual_values)
 
     def test_from_entity_WHEN_called_with_book_THEN_returns_dto_with_matching_attributes(self) -> None:
-        book = BookFactory.get_random('Book name')
+        book = BookDTOTestFactory.build()
         expected_values = [
             book.id.value,
             book.name.value,
