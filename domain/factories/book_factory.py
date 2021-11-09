@@ -1,9 +1,6 @@
-from domain.entities.author.value_objects.author_id import AuthorId
-from domain.entities.book.book import Book
-from domain.entities.book.value_objects.book_edition import BookEdition
-from domain.entities.book.value_objects.book_id import BookId
-from domain.entities.book.value_objects.book_name import BookName
-from domain.entities.book.value_objects.book_publication_year import BookPublicationYear
+from domain.entities.author.value_objects import AuthorId
+from domain.entities.book import Book
+from domain.entities.book.value_objects import BookEdition, BookId, BookName, BookPublicationYear
 
 
 class BookFactory:
