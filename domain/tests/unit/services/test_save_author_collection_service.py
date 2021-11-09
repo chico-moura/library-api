@@ -12,20 +12,14 @@ class TestSaveAuthorCollectionService(TestCase):
     def tearDown(self) -> None:
         unstub()
 
-    # FIXME: shrink it
-
     def test_execute_WHEN_called_THEN_calls_repository_save_with_authors_created_from_given_dtos(self) -> None:
-        dto1 = mock(AuthorCreationDTO)
-        dto2 = mock(AuthorCreationDTO)
-        author1 = mock(Author)
-        author2 = mock(Author)
-        when(dto1).to_entity().thenReturn(author1)
-        when(dto2).to_entity().thenReturn(author2)
         author_repository = mock(AuthorRepository)
-        when(author_repository).save(author1, author2)
-        author_dtos = [dto1, dto2]
+        author_creation_dtos = [mock(AuthorCreationDTO) for _ in range(3)]
+        authors = [mock(Author) for _ in author_creation_dtos]
+        when(author_repository).save(*authors)
+        [when(author_creation_dtos[index]).to_entity().thenReturn(authors[index]) for index in range(len(author_creation_dtos))]
         save_author_collection_service = SaveAuthorCollectionService(author_repository)
 
-        save_author_collection_service.execute(author_dtos)
+        save_author_collection_service.execute(author_creation_dtos)
 
-        verify(author_repository).save(author1, author2)
+        verify(author_repository).save(*authors)
