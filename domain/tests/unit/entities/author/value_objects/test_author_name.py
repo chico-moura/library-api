@@ -1,20 +1,10 @@
 from unittest import TestCase
-from mockito import when, unstub
 
 from domain.entities.author.value_objects import AuthorName
-from domain.exceptions.value_objects.author_name_exceptions.author_name_too_long_exception import \
-    AuthorNameTooLongException
-from domain.exceptions.value_objects.author_name_exceptions.author_name_too_short_exception import \
-    AuthorNameTooShortException
-from domain.settings import AuthorSettings
+from domain.exceptions import ValidationException
 
-
-# FIXME: should test __init__, not save. no one cares about validate()
 
 class TestAuthorName(TestCase):
-    def tearDown(self) -> None:
-        unstub()
-
     def test_init_WHEN_called_with_valid_name_THEN_assigns_given_name_to_value(self) -> None:
         expected_value = 'Author Name'
 
@@ -22,44 +12,37 @@ class TestAuthorName(TestCase):
 
         self.assertEqual(expected_value, author_name.value)
 
-    def test_validate_WHEN_author_name_is_too_long_THEN_raises_author_name_too_long_exception(self) -> None:
-        max_size = AuthorSettings.NAME_MAX_LENGTH
-        name = 'a' * (max_size + 1)
-        when(AuthorName).__post_init__()
-        author_name = AuthorName(name)
+    def test_init_WHEN_author_name_is_too_long_THEN_raises_validation_exception(self) -> None:
+        length_too_long = 251
 
-        with self.assertRaises(AuthorNameTooLongException):
-            author_name.validate()
+        name = 'a' * length_too_long
 
-    def test_validate_WHEN_author_name_is_not_too_long_THEN_does_not_raises_author_name_too_long_exception(self) -> None:
-        max_size = AuthorSettings.NAME_MAX_LENGTH
-        name = 'a' * max_size
-        when(AuthorName).__post_init__()
-        author_name = AuthorName(name)
+        with self.assertRaises(ValidationException):
+            AuthorName(name)
+
+    def test_init_WHEN_author_name_is_not_too_long_THEN_does_not_raises_validation_exception(self) -> None:
+        acceptable_length = 250
+        name = 'a' * acceptable_length
 
         try:
-            author_name.validate()
+            AuthorName(name)
 
-        except AuthorNameTooLongException:
+        except ValidationException:
             self.fail('AuthorNameTooLongException raised unexpectedly')
 
-    def test_validate_WHEN_author_name_is_too_short_THEN_raises_author_name_too_short_exception(self) -> None:
-        min_size = AuthorSettings.NAME_MIN_LENGTH
-        name = 'a' * (min_size - 1)
-        when(AuthorName).__post_init__()
-        author_name = AuthorName(name)
+    def test_init_WHEN_author_name_is_too_short_THEN_raises_validation_exception(self) -> None:
+        length_too_short = 1
+        name = 'a' * length_too_short
 
-        with self.assertRaises(AuthorNameTooShortException):
-            author_name.validate()
+        with self.assertRaises(ValidationException):
+            AuthorName(name)
 
-    def test_validate_WHEN_author_name_is_not_too_short_THEN_does_not_raises_author_name_too_short_exception(self) -> None:
-        min_size = AuthorSettings.NAME_MIN_LENGTH
-        name = 'a' * min_size
-        when(AuthorName).__post_init__()
-        author_name = AuthorName(name)
+    def test_init_WHEN_author_name_is_not_too_short_THEN_does_not_raises_validation_exception(self) -> None:
+        acceptable_length = 2
+        name = 'a' * acceptable_length
 
         try:
-            author_name.validate()
+            AuthorName(name)
 
-        except AuthorNameTooShortException:
+        except ValidationException:
             self.fail('AuthorNameTooShortException raised unexpectedly')
