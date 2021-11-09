@@ -1,1 +1,1 @@
-from api.models.author_dto_model import AuthorDTOModel
+from api.models.author_model import AuthorModel

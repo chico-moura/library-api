@@ -2,27 +2,24 @@ from typing import List
 
 from django.shortcuts import get_object_or_404
 
-from api.models import AuthorDTOModel
-from domain.entities.author.author import Author
-from domain.entities.author.dtos.author_dto import AuthorDTO
-from domain.entities.author.value_objects.author_id import AuthorId
-from domain.repositories.author_repository import AuthorRepository
+from api.factories.author_model_factory import AuthorModelFactory
+from domain.entities.author import Author
+from domain.entities.author.value_objects import AuthorId
+from domain.repositories import AuthorRepository
 
-# TODO: cut off dtos, do it directly, it's already decoupled
+from api.models import AuthorModel
 
 
 class DjangoAuthorRepository(AuthorRepository):
     def save(self, *authors: Author) -> None:
-        dtos = [AuthorDTO.from_entity(author) for author in authors]
-        models = [AuthorDTOModel.from_dto(dto) for dto in dtos]
-        [model.save() for model in models]
+        for author in authors:
+            model = AuthorModelFactory.model_from_author(author)
+            model.save()
 
     def get_by_id(self, id_: AuthorId) -> Author:
-        model: AuthorDTOModel = get_object_or_404(AuthorDTOModel, pk=id_.value)
-        dto = model.to_dto()
-        return dto.to_entity()
+        model: AuthorModel = get_object_or_404(AuthorModel, pk=id_.value)
+        return AuthorModelFactory.author_from_model(model)
 
     def get_all(self) -> List[Author]:
-        models = AuthorDTOModel.objects.all()
-        dtos = [model.to_dto() for model in models]
-        return [author.to_entity() for author in dtos]
+        models = AuthorModel.objects.all()
+        return [AuthorModelFactory.author_from_model(model) for model in models]
