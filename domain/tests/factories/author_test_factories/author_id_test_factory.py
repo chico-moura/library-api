@@ -7,4 +7,4 @@ class AuthorIdTestFactory(Factory):
     class Meta:
         model = AuthorId
 
-    value = Faker('uuid4')
+    value = Faker('uuid4', cast_to=None)
