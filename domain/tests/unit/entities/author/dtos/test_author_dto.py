@@ -1,13 +1,7 @@
-import uuid
 from unittest import TestCase
 
-from domain.entities.author import Author
 from domain.entities.author.dtos import AuthorDTO
-from domain.entities.author.value_objects import AuthorId, AuthorName
 from domain.tests.factories import AuthorTestFactory, AuthorDTOTestFactory
-
-
-# TODO: first test stuff comparing full objects or its representations
 
 
 class TestAuthorDTO(TestCase):
