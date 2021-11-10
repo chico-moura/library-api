@@ -17,8 +17,20 @@ class BookDTO:
     authors: List[UUID]
 
     def to_entity(self) -> Book:
-        return BookFactory.from_book_dto(self)
+        return BookFactory.build_existing(
+            id_=self.id,
+            name=self.name,
+            edition=self.edition,
+            publication_year=self.publication_year,
+            authors=self.authors
+        )
 
     @classmethod
     def from_entity(cls, book: Book) -> BookDTO:
-        pass
+        return cls(
+            id=book.id.value,
+            name=book.name.value,
+            edition=book.edition.value,
+            publication_year=book.publication_year.value,
+            authors=[author_id.value for author_id in book.authors]
+        )

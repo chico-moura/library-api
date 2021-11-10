@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from uuid import UUID
 
 from domain.entities.author.author import Author
-from domain.entities.author.value_objects import AuthorId, AuthorName
+from domain.factories import AuthorFactory
 
 
 @dataclass
@@ -20,10 +20,7 @@ class AuthorDTO:
         )
 
     def to_entity(self) -> Author:
-        author_id = AuthorId(self.id)
-        author_name = AuthorName(self.name)
-
-        return Author(
-            id=author_id,
-            name=author_name
+        return AuthorFactory.build_existing(
+            id_=self.id,
+            name=self.name
         )

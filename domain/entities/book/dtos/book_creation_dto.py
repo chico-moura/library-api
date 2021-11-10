@@ -14,4 +14,9 @@ class BookCreationDTO:
     authors: List[UUID]
 
     def to_entity(self) -> Book:
-        return BookFactory
+        return BookFactory.build_new(
+            name=self.name,
+            edition=self.edition,
+            publication_year=self.publication_year,
+            authors=self.authors
+        )
