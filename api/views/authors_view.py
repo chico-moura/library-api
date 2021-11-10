@@ -3,7 +3,7 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from api.serializers.author_output_dto_serializer import AuthorDTOSerializer
+from api.serializers.author_dto_serializer import AuthorDTOSerializer
 from domain.repositories.author_repository import AuthorRepository
 from domain.services.author.list_authors_service import ListAuthorsService
 from api.repositories.django_author_repository import DjangoAuthorRepository

@@ -2,7 +2,7 @@ from rest_framework import status
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from api.serializers.author_output_dto_serializer import AuthorDTOSerializer
+from api.serializers.author_dto_serializer import AuthorDTOSerializer
 from api.views.base_author_view import BaseAuthorView
 from domain.services.author.list_authors_service import ListAuthorsService
 
