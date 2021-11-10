@@ -9,7 +9,7 @@ class AuthorCreationDTO:
     name: str
 
     def to_entity(self) -> Author:
-        return AuthorFactory.create_new(
+        return AuthorFactory.build_new(
             name=self.name
         )
 
