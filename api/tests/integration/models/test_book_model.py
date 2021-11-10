@@ -8,7 +8,7 @@ from domain.tests.factories import BookTestFactory, AuthorTestFactory
 
 
 # FIXME: is this test ok?
-
+# TODO: isort
 
 class TestBookModel(TestCase):
     def test_from_entity_WHEN_called_with_book_THEN_returns_book_model_with_matching_attributes(self) -> None:
