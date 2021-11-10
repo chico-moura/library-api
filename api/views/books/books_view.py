@@ -17,6 +17,9 @@ class BooksView(APIView):
         super().__init__(*args, **kwargs)
         self.__book_repository = DjangoBookRepository()
 
+    def get(self, request: Request) -> Response:
+        ListBooksService
+
     def post(self, request: Request) -> Response:
         book_creation_dto_serializer = BookCreationDTOSerializer(request.data)
 

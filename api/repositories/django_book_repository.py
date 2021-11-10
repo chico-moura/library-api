@@ -1,5 +1,6 @@
 from typing import Optional, List
 
+from api.models.book_model import BookModel
 from domain.entities.author.value_objects.author_id import AuthorId
 from domain.entities.book.book import Book
 from domain.entities.book.value_objects.book_edition import BookEdition
@@ -10,7 +11,12 @@ from domain.repositories.book_repository import BookRepository
 
 
 class DjangoBookRepository(BookRepository):
-    def save(self, book: Book) -> None:
+    def save(self, *books: Book) -> None:
+        for book in books:
+            model = BookModel.from_entity(book)
+            model.save()
+
+    def get_all(self) -> List[Book]:
         pass
 
     def get_by_id(self, id_: BookId) -> Book:

@@ -11,7 +11,11 @@ from domain.entities.book.value_objects.book_publication_year import BookPublica
 
 class BookRepository(ABC):
     @abstractmethod
-    def save(self, book: Book) -> None:
+    def save(self, *book: Book) -> None:
+        pass
+
+    @abstractmethod
+    def get_all(self) -> List[Book]:
         pass
 
     @abstractmethod
