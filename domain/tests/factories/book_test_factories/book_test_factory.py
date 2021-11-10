@@ -24,4 +24,3 @@ class BookTestFactory(Factory):
         elements=[AuthorId(uuid4()) for _ in range(5)],
         unique=True
     )
-
