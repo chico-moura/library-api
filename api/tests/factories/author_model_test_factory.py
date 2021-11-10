@@ -1,9 +1,10 @@
-from factory import Factory, Faker
+from factory import Faker
+from factory.django import DjangoModelFactory
 
 from api.models import AuthorModel
 
 
-class AuthorModelTestFactory(Factory):
+class AuthorModelTestFactory(DjangoModelFactory):
     class Meta:
         model = AuthorModel
 

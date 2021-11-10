@@ -18,22 +18,16 @@ class BooksView(APIView):
         self.__book_repository = DjangoBookRepository()
 
     def post(self, request: Request) -> Response:
-        book_creation_dto_serializer = BookCreationDTOSerializer(request.data)
+        book_creation_dto_serializer = BookCreationDTOSerializer(data=request.data)
+        book_creation_dto_serializer.is_valid(raise_exception=True)
+        book_creation_dto = book_creation_dto_serializer.validated_data
+        create_book_service = CreateBookService(self.__book_repository)
 
-        if book_creation_dto_serializer.is_valid():
-            book_creation_dto = book_creation_dto_serializer.validated_data
-            create_book_service = CreateBookService(self.__book_repository)
+        book_dto = create_book_service.execute(book_creation_dto)
 
-            book_dto = create_book_service.execute(book_creation_dto)
+        book_dto_serializer = BookDTOSerializer(book_dto)
 
-            book_dto_serializer = BookDTOSerializer(book_dto)
-
-            return Response(
-                data=book_dto_serializer.data,
-                status=status.HTTP_201_CREATED
-            )
         return Response(
-            data=book_creation_dto_serializer.errors,
-            status=status.HTTP_400_BAD_REQUEST
+            data=book_dto_serializer.data,
+            status=status.HTTP_201_CREATED
         )
-

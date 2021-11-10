@@ -5,4 +5,4 @@ from domain.entities.book.dtos import BookDTO
 
 class BookDTOSerializer(DataclassSerializer):
     class Meta:
-        model = BookDTO
+        dataclass = BookDTO
