@@ -14,7 +14,6 @@ class TestAuthorsViews(APITestCase):
 
     def test_get_WHEN_called_THEN_return_response_with_status_200(self) -> None:
         models = [AuthorModelTestFactory.create() for _ in range(3)]
-
         when(AuthorModel.objects).all().thenReturn(models)
         url = reverse('authors')
         expected_status = status.HTTP_200_OK
