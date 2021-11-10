@@ -3,8 +3,7 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from api.factories.author_model_factory import AuthorModelFactory
-from domain.tests.factories import AuthorTestFactory
+from api.tests.factories.author_model_test_factory import AuthorModelTestFactory
 
 from api.models import AuthorModel
 
@@ -14,11 +13,7 @@ class TestAuthorsViews(APITestCase):
         unstub()
 
     def test_get_WHEN_called_THEN_return_response_with_status_200(self) -> None:
-        models = []
-        for _ in range(3):
-            author = AuthorTestFactory.build()
-            model = AuthorModelFactory.model_from_author(author)
-            models.append(model)
+        models = [AuthorModelTestFactory.create() for _ in range(3)]
 
         when(AuthorModel.objects).all().thenReturn(models)
         url = reverse('authors')
