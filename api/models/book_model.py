@@ -14,7 +14,7 @@ class BookModel(models.Model):
     name = models.CharField(max_length=BookName.MAX_SIZE)
     edition = models.CharField(max_length=BookEdition.MAX_SIZE)
     publication_year = models.CharField(max_length=BookPublicationYear.MAX_SIZE)
-    authors = models.ManyToManyField(AuthorModel)
+    authors = models.ManyToManyField(AuthorModel, related_name='books')
 
     @classmethod
     def from_entity(cls, book: Book) -> BookModel:
@@ -24,7 +24,7 @@ class BookModel(models.Model):
             edition=book.edition.value,
             publication_year=book.publication_year.value,
         )
-        model.save()    # FIXME: model.save() in middle of factory method
+        model.save()
         authors = [AuthorModel.objects.get(pk=author_id.value) for author_id in book.authors]
         model.authors.set(authors)
         return model
