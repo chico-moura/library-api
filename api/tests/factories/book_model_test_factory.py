@@ -2,18 +2,20 @@ from random import randrange
 from uuid import uuid4
 
 import factory
-from factory import Factory, Faker
+from factory import Faker
+from factory.django import DjangoModelFactory
 
 from api.models.book_model import BookModel
 from api.tests.factories.author_model_test_factory import AuthorModelTestFactory
 
 
-class BookModelTestFactory(Factory):
+class BookModelTestFactory(DjangoModelFactory):
     class Meta:
         model = BookModel
 
     id = Faker(
-        'uuid4'
+        'uuid4',
+        cast_to=None
     )
     name = Faker(
         'company'

@@ -1,5 +1,7 @@
 from typing import Optional, List
 
+from rest_framework.generics import get_object_or_404
+
 from api.models.book_model import BookModel
 from domain.entities.author.value_objects.author_id import AuthorId
 from domain.entities.book.book import Book
@@ -20,7 +22,8 @@ class DjangoBookRepository(BookRepository):
         pass
 
     def get_by_id(self, id_: BookId) -> Book:
-        pass
+        book_model: BookModel = get_object_or_404(BookModel, id=id_.value)
+        return book_model.to_entity()
 
     def get_by_attributes(
         self,

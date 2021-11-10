@@ -35,5 +35,5 @@ class BookModel(models.Model):
             name=self.name,
             edition=self.edition,
             publication_year=self.publication_year,
-            authors=[AuthorId(author.id) for author in self.authors.all()]
+            authors=[author.id for author in self.authors.all()]
         )
