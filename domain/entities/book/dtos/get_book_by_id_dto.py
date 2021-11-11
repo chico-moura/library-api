@@ -6,7 +6,7 @@ from domain.entities.book.value_objects.book_id import BookId
 
 @dataclass
 class GetBookByIdDTO:
-    book_id: UUID
+    raw_book_id: UUID
 
     def to_book_id(self) -> BookId:
-        return BookId(self.book_id)
+        return BookId(self.raw_book_id)
