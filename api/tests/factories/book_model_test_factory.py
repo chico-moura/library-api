@@ -1,4 +1,5 @@
 from random import randrange
+from typing import List
 from uuid import uuid4
 
 import factory
@@ -7,6 +8,7 @@ from factory.django import DjangoModelFactory
 
 from api.models.book_model import BookModel
 from api.tests.factories.author_model_test_factory import AuthorModelTestFactory
+from domain.entities.author.value_objects import AuthorId
 
 
 class BookModelTestFactory(DjangoModelFactory):
@@ -30,13 +32,11 @@ class BookModelTestFactory(DjangoModelFactory):
     )
 
     @factory.post_generation
-    def authors(self, *args, **kwargs) -> None:
-        self.save()
-        amount = randrange(5)
-        authors = []
-        for _ in range(amount):
-            author = AuthorModelTestFactory()
-            author.save()
-            authors.append(author)
+    def authors(self, create: bool, extracted: List[AuthorId], *args, **kwargs) -> None:
+        if not create:
+            return
 
-        self.authors.set(authors)
+        if extracted:
+            self.save()
+            authors = [AuthorModelTestFactory.create(id=author_id.value) for author_id in extracted]
+            self.authors.set(authors)
