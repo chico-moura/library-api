@@ -51,3 +51,27 @@ class TestBookDetailsView(APITestCase):
         expected_status = status.HTTP_404_NOT_FOUND
         actual_status = response.status_code
         self.assertEqual(expected_status, actual_status)
+
+    def test_put_WHEN_book_found_THEN_returns_status_code_200(self):
+        pass
+
+    def test_put_WHEN_book_found_THEN_returns_payload_with_updated_book(self):
+        pass
+
+    def test_put_WHEN_book_not_found_THEN_returns_status_code_404(self):
+        book_model: BookModel = BookModelTestFactory.build()
+        update_book_data={
+            'name': book_model.name,
+            'edition': book_model.edition,
+            'publication_year': book_model.publication_year,
+            'authors': []
+        }
+        url = reverse('book_details', kwargs={'book_id': book_model.id})
+
+        response = self.client.put(
+            path=url,
+            data=update_book_data
+        )
+
+        expected_status = status.HTTP_404_NOT_FOUND
+        self.assertEqual(expected_status, response.status_code)
