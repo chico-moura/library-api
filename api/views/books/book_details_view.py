@@ -27,7 +27,6 @@ class BookDetailsView(APIView):
         self.__update_book_service = UpdateBookService(book_repository)
         self.__delete_book_service = DeleteBookService(book_repository)
 
-
     def get(self, request: Request, book_id: UUID) -> Response:
         try:
             get_book_by_id_dto = GetBookByIdDTO(book_id)
@@ -71,5 +70,3 @@ class BookDetailsView(APIView):
         return Response(
             status=status.HTTP_204_NO_CONTENT
         )
-
-
