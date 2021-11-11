@@ -9,6 +9,7 @@ from domain.entities.book.value_objects.book_edition import BookEdition
 from domain.entities.book.value_objects.book_id import BookId
 from domain.entities.book.value_objects.book_name import BookName
 from domain.entities.book.value_objects.book_publication_year import BookPublicationYear
+from domain.exceptions.book.book_not_found_exception import BookNotFoundException
 from domain.repositories.book_repository import BookRepository
 
 
@@ -22,8 +23,12 @@ class DjangoBookRepository(BookRepository):
         pass
 
     def get_by_id(self, id_: BookId) -> Book:
-        book_model: BookModel = get_object_or_404(BookModel, id=id_.value)
-        return book_model.to_entity()
+        try:
+            book_model: BookModel = BookModel.objects.get(pk=id_.value)
+            return book_model.to_entity()
+        except BookModel.DoesNotExist as error:
+            exception_message = f'Book not found for given id(id_.value)'
+            raise BookNotFoundException(exception_message) from error
 
     def get_by_attributes(
         self,
