@@ -5,10 +5,13 @@ from testfixtures.django import compare
 from api.models.book_model import BookModel
 from api.repositories.django_book_repository import DjangoBookRepository
 from api.tests.factories.book_model_test_factory import BookModelTestFactory
+from domain.entities.book.book import Book
 from domain.entities.book.value_objects.book_id import BookId
+from domain.entities.book.value_objects.book_name import BookName
 from domain.exceptions.book.book_not_found_exception import BookNotFoundException
 from domain.factories import BookFactory
 from domain.tests.factories import BookIdTestFactory
+from domain.tests.factories.book_test_factories.book_test_factory import BookTestFactory
 
 
 class TestDjangoBookRepository(TestCase):
@@ -51,3 +54,20 @@ class TestDjangoBookRepository(TestCase):
 
         with self.assertRaises(BookNotFoundException):
             django_book_repository.delete(unexisting_book_id)
+
+    def test_filter_by_WHEN_filtering_by_name_THEN_returns_books_that_matches_name(self) -> None:
+        book_name = BookName('Fake name')
+        book_authors = []
+        book_models = BookModelTestFactory.create_batch(1, name=book_name.value, authors=book_authors)
+        django_book_repository = DjangoBookRepository()
+
+        result_books = django_book_repository.filter_by(name=book_name)
+
+        expected_books = [BookTestFactory.build(
+            id__value=book_models[0].id,
+            name__value=book_models[0].name,
+            edition__value=book_models[0].edition,
+            publication_year__value=book_models[0].publication_year,
+            authors=book_authors,
+        )]
+        compare(expected_books, result_books)
