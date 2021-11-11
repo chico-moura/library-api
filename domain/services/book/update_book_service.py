@@ -3,7 +3,7 @@ from domain.repositories import BookRepository
 
 
 class UpdateBookService:
-    __book_repository = BookRepository
+    __book_repository: BookRepository
 
     def __init__(self, book_repository: BookRepository) -> None:
         self.__book_repository = book_repository
