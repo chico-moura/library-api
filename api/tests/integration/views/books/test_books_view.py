@@ -6,6 +6,7 @@ from rest_framework.test import APITestCase
 from testfixtures import compare
 
 from api.tests.factories.author_model_test_factory import AuthorModelTestFactory
+from api.tests.factories.book_model_test_factory import BookModelTestFactory
 
 
 class TestBooksView(APITestCase):
@@ -69,3 +70,33 @@ class TestBooksView(APITestCase):
         expected_status = status.HTTP_400_BAD_REQUEST
         actual_status = response.status_code
         self.assertEqual(expected_status, actual_status)
+
+    def test_get_WHEN_called_THEN_returns_status_code_200(self) -> None:
+        url = reverse('books')
+
+        response = self.client.get(
+            path=url,
+        )
+
+        expected_status = status.HTTP_200_OK
+        self.assertEqual(expected_status, response.status_code)
+
+    def test_get_WHEN_filtering_by_name_THEN_returns_books_that_match_book_name(self) -> None:
+        book_id = uuid4()
+        book_name = 'Fake book name'
+        book_authors = []
+        book_model = BookModelTestFactory.create(id=book_id, name=book_name, authors=book_authors)
+        url = reverse('books') + f'?name={book_name}'
+
+        response = self.client.get(
+            path=url,
+        )
+
+        expected_books_payload = [{
+            'id': str(book_id),
+            'name': book_name,
+            'edition': book_model.edition,
+            'publication_year': book_model.publication_year,
+            'authors': book_authors
+        }]
+        compare(expected_books_payload, response.json())
