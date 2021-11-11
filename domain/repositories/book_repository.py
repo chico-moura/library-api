@@ -23,6 +23,10 @@ class BookRepository(ABC):
         pass
 
     @abstractmethod
+    def delete(self, id_: BookId) -> None:
+        pass
+
+    @abstractmethod
     def get_by_attributes(
         self,
         name: Optional[BookName],

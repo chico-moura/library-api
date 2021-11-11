@@ -16,19 +16,19 @@ from domain.repositories.book_repository import BookRepository
 class DjangoBookRepository(BookRepository):
     def save(self, *books: Book) -> None:
         for book in books:
-            model = BookModel.from_entity(book)
-            model.save()
+            book_model = BookModel.from_entity(book)
+            book_model.save()
 
     def get_all(self) -> List[Book]:
         pass
 
     def get_by_id(self, id_: BookId) -> Book:
-        try:
-            book_model: BookModel = BookModel.objects.get(pk=id_.value)
-            return book_model.to_entity()
-        except BookModel.DoesNotExist as error:
-            exception_message = f'Book not found for given id(id_.value)'
-            raise BookNotFoundException(exception_message) from error
+        book_model = self.__get_book_model_by_id(id_)
+        return book_model.to_entity()
+
+    def delete(self, id_: BookId) -> None:
+        book_model: BookModel = self.__get_book_model_by_id(id_)
+        book_model.delete()
 
     def get_by_attributes(
         self,
@@ -38,3 +38,11 @@ class DjangoBookRepository(BookRepository):
         authors: Optional[List[AuthorId]]
     ) -> List[Book]:
         pass
+
+    @staticmethod
+    def __get_book_model_by_id(id_: BookId) -> BookModel:
+        try:
+            return BookModel.objects.get(pk=id_.value)
+        except BookModel.DoesNotExist as error:
+            exception_message = f'Book not found for given id(id_.value)'
+            raise BookNotFoundException(exception_message) from error

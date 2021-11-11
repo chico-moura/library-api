@@ -29,8 +29,25 @@ class TestDjangoBookRepository(TestCase):
         compare(expected_book, actual_book)
 
     def test_get_by_id_WHEN_book_does_not_exist_THEN_raises_book_not_found_exception(self) -> None:
-        unexistent_book_id = BookId(uuid4())
+        unexisting_book_id = BookId(uuid4())
         django_book_repository = DjangoBookRepository()
 
         with self.assertRaises(BookNotFoundException):
-            django_book_repository.get_by_id(unexistent_book_id)
+            django_book_repository.get_by_id(unexisting_book_id)
+
+    def test_delete_WHEN_book_exists_THEN_deletes_given_book_model(self) -> None:
+        book_model: BookModel = BookModelTestFactory.create()
+        book_id = BookId(book_model.id)
+        django_book_repository = DjangoBookRepository()
+
+        django_book_repository.delete(book_id)
+
+        book_exists = BookModel.objects.filter(pk=book_id.value).exists()
+        self.assertFalse(book_exists)
+
+    def test_delete_WHEN_book_does_not_exists_THEN_raises_book_not_found_exception(self) -> None:
+        unexisting_book_id = BookId(uuid4())
+        django_book_repository = DjangoBookRepository()
+
+        with self.assertRaises(BookNotFoundException):
+            django_book_repository.delete(unexisting_book_id)
