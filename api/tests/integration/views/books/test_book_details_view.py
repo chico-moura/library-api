@@ -99,10 +99,10 @@ class TestBookDetailsView(APITestCase):
         }
         self.assertEqual(expected_payload, response.json())
 
-    def test_put_WHEN_book_not_found_THEN_returns_status_code_404(self):
+    def test_put_WHEN_book_not_found_THEN_returns_status_code_404(self) -> None:
         book_id = uuid4()
         book_model = BookTestFactory.build(id__value=book_id, authors=[])
-        update_book_data={
+        update_book_data = {
             'name': book_model.name.value,
             'edition': book_model.edition.value,
             'publication_year': book_model.publication_year.value,
@@ -118,3 +118,28 @@ class TestBookDetailsView(APITestCase):
 
         expected_status = status.HTTP_404_NOT_FOUND
         self.assertEqual(expected_status, response.status_code)
+
+    def test_delete_WHEN_book_exists_THEN_return_status_code_204(self) -> None:
+        book_id = uuid4()
+        BookModelTestFactory.create(id=book_id)
+        url = reverse('book_details', kwargs={'book_id': book_id})
+
+        response = self.client.delete(
+            path=url,
+        )
+
+        expected_status = status.HTTP_204_NO_CONTENT
+        self.assertEqual(expected_status, response.status_code)
+
+    def test_delete_WHEN_book_not_found_THEN_return_status_code_404(self) -> None:
+        book_id = uuid4()
+        url = reverse('book_details', kwargs={'book_id': book_id})
+
+        response = self.client.delete(
+            path=url,
+        )
+
+        expected_status = status.HTTP_404_NOT_FOUND
+        self.assertEqual(expected_status, response.status_code)
+
+
