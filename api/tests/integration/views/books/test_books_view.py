@@ -1,14 +1,14 @@
 from uuid import uuid4
 
-from django.test import TestCase
-from django.urls import reverse
 from rest_framework import status
+from rest_framework.reverse import reverse
+from rest_framework.test import APITestCase
 from testfixtures import compare
 
 from api.tests.factories.author_model_test_factory import AuthorModelTestFactory
 
 
-class TestBooksView(TestCase):
+class TestBooksView(APITestCase):
     def test_post_WHEN_called_with_valid_data_THEN_returns_status_201(self) -> None:
         author_id = uuid4()
         payload = {
@@ -22,7 +22,8 @@ class TestBooksView(TestCase):
 
         response = self.client.post(
             path=url,
-            data=payload
+            data=payload,
+            format='json'
         )
 
         expected_status = status.HTTP_201_CREATED
@@ -42,7 +43,8 @@ class TestBooksView(TestCase):
 
         response = self.client.post(
             path=url,
-            data=payload
+            data=payload,
+            format='json'
         )
 
         expected_payload = payload
@@ -60,7 +62,8 @@ class TestBooksView(TestCase):
 
         response = self.client.post(
             path=url,
-            data=payload
+            data=payload,
+            format='json'
         )
 
         expected_status = status.HTTP_400_BAD_REQUEST
