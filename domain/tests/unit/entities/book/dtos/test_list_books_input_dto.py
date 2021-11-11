@@ -1,7 +1,9 @@
 from unittest import TestCase
 from uuid import uuid4
 
+from domain.entities.author.value_objects import AuthorId
 from domain.entities.book.dtos.list_books_input_dto import ListBooksInputDTO
+from domain.entities.book.value_objects import BookEdition, BookName, BookPublicationYear
 
 
 class TestListBooksInputDTO(TestCase):
@@ -18,11 +20,10 @@ class TestListBooksInputDTO(TestCase):
         )
 
         result_data = list_books_input_dto.to_data()
-
         expected_data = {
-            'name': name,
-            'edition': edition,
-            'publication_year': publication_year,
-            'author_id': author_id
+            'name': BookName(name),
+            'edition': BookEdition(edition),
+            'publication_year': BookPublicationYear(publication_year),
+            'author_id': AuthorId(author_id)
         }
         self.assertEqual(expected_data, result_data)
