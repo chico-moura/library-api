@@ -35,3 +35,14 @@ class BookRepository(ABC):
         authors: Optional[List[AuthorId]]
     ) -> List[Book]:
         pass
+
+    @abstractmethod
+    def filter_by(
+        self,
+        *,
+        name: Optional[BookName] = None,
+        edition: Optional[BookEdition] = None,
+        publication_year: Optional[BookPublicationYear] = None,
+        author_id: Optional[AuthorId]= None
+    ) -> List[Book]:
+        pass
