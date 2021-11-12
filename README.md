@@ -1,6 +1,6 @@
 # library-api
 A simple library API. \
-It follows a hexagonal achitecture and uses Django REST Framework.\
+It is inspireed by hexagonal achitecture and uses Django REST Framework.\
 This is part of a series of challanges.
 
 ## Run
